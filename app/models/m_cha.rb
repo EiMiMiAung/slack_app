@@ -1,0 +1,2 @@
+class MCha < ApplicationRecord
+end

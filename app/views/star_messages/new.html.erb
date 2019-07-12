@@ -1,0 +1,38 @@
+<%= render 'user/header' %>
+<div>
+<%= render 'user/menu' %>
+</div>
+<h1>スターアイテム</h1>
+  
+  <div class="col-md-6 col-md-offset-3">
+    <% @dstarmessage.each do |starmsg|%>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= starmsg.name %>
+    <%= starmsg.created_at %>
+    | <%= link_to "", directunstarmsg_path(:starmsgid => starmsg.id),class:"fa fa-star" %>
+    </br>
+     <%= starmsg.msg %><br>
+     Direct Message
+     </br>
+     <hr>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+   <% @channelstarmessage.each do |starmsg|%>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= starmsg.username %>
+    <%= starmsg.created_at %>
+    | <%= link_to "", channelunstarmsg_path(:starmsgid => starmsg.chamsg_id),class:"fa fa-star" %>
+    </br>
+     <%= starmsg.msg %><br>
+     <%= starmsg.chaname %>
+     </br>
+     <hr>
+    <% end %>
+    </div>
+  </div>
+

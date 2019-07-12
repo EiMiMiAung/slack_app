@@ -1,0 +1,24 @@
+<h1>ワークスペースを作成する</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@m_user, url:"create") do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :ユーザー名 %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :メールアドレス %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :パスワード %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :確認パスワード %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+     
+     <p> <%= f.submit "次", class: "btn btn-lg btn-primary" %></P>
+   <% end %>
+    
+  </div>
+</div>

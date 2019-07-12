@@ -1,0 +1,67 @@
+<%= render 'user/header' %>
+<div>
+<%= render 'user/menu' %>
+</div>
+</div>
+<div class="chaH">
+<h1><%= session[:cha_name] %></h1>
+</div>
+<div class="container">
+<div class="article">
+  <% @chamsgoutput.each do |msg|%>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "" ,:class =>"avatar") %>
+    <div class="displaybox">
+    <div class="tooltiptext">
+    <%= link_to "",threadmsg_path(:clickchamsgid => msg.id),class:"fas fa-comment-alt"%>
+    <% if @chamsgidstar.map(&:chamsg_id).include? msg.id%>
+      <%= link_to "",channelunstar_path(:starclickchamsgid => msg.id),class:"fa fa-star"%>
+    <% else %>
+      <%= link_to "",channelstar_path(:starclickchamsgid => msg.id),class:"far fa-star"%>
+    <% end %>
+    <%= link_to "",chamsgdelete_path(:delclickchamsgid => msg.id),class:"fa fa-trash"%>
+    </div>
+    <%= msg.name %>
+    <%= msg.created_at %><br>
+    <%= msg.msg %>
+    <% @arrayt.each do |threadcount| %>
+      <% if msg.id == threadcount.chamsg_id %>
+         <%= threadcount.count%>
+      <% end %>
+    <% end %> 
+     </br>
+     <hr>
+     </div>
+    <% end %>
+  </div>
+  </div>
+<div class="footer">
+<%= form_for(:session,url:channelmsgsend_path) do |f| %>
+      <div class="col-md-8">
+      <%= f.text_field :sendmsg, class: 'form-control',data: { autocomplete_source: @usernames.order(:name).map { |t| 
+      { :label => '@' + t.name} } }, id: 'autocomplete-4' %>
+      </div>
+      <div class="col-md-1">
+      <%= f.submit "送信", class: "btn btl-lg btn-primary btnW", :style => "width: 70px; height: 50px;" %>
+      <%= f.hidden_field :memtion_name, class: 'memtion_name' %>
+      <% end %>
+      </div>
+  </div>
+  <div>
+  <%= render 'cha_msgcon/sidebar' %>
+  </div>
+
+  <script>
+ $( "#autocomplete-4" ).autocomplete({
+      source: $('#autocomplete-4').data('autocomplete-source'),
+      position: {
+        my: "left bottom",
+        at: "left top",
+    },
+    select: function(event, ui) {
+      event.preventDefault();
+      this.value = ui.item.label
+      $('.memtion_name').val(ui.item.value)
+    }
+    });
+</script>

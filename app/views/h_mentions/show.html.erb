@@ -1,0 +1,21 @@
+<%= render 'user/header' %>
+<div>
+<%= render 'user/menu' %>
+</div>
+<div class="container">
+<div class="article">
+<h1>Activity</h1>                                                                                                                                         
+  <div class="col-md-6 col-md-offset-3">
+    <% @mention.each do |mention|%>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= mention.name %>
+    <%= mention.created_at %>
+    </br>
+     <%= mention.msg %>
+     <hr>
+    <% end %>
+    </div>
+  </div>
+  </div>
+  </div>

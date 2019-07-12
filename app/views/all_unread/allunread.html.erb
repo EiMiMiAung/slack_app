@@ -1,0 +1,36 @@
+</div>   
+<%= render 'user/header' %>
+<div>
+<%= render 'user/menu' %>
+</div>
+<h1>未読</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+   <% @dirUnreadMsg.each do |dmsg|%>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= dmsg.name %>
+    <%= dmsg.created_at %>
+    </br>
+     <%= dmsg.msg %>
+     </br>
+     <hr>
+    <% end %>
+    <% @chaUnreadMsg.each do |chamsg|%>
+
+      <div>
+      <%= chamsg.cha_name %>
+      </div>
+      </br>
+      <div>
+      <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+      <%= chamsg.user_name %>
+      <%= chamsg.created_at %>
+      </br>
+       <%= chamsg.msg %>
+       </br>
+       <hr>
+      <% end %>
+</div>
+</div>
+

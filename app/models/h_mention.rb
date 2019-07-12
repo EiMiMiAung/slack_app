@@ -1,0 +1,2 @@
+class HMention < ApplicationRecord
+end

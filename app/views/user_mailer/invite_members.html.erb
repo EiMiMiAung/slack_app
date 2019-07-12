@@ -1,0 +1,9 @@
+<h1> Slack App </ h1>
+
+<p> Hi <%=  @m_user.name  %> , </ p>
+
+<p>
+Welcome to the Slack App! <h3><%=  @workspace_name  %> Workspace </h3> Click on the link below to join your account:
+</ p>
+
+<%= link_to  "Join workspace", edit_joinworkspace_url(@m_user.invitation_token,email: @m_user.email) %>

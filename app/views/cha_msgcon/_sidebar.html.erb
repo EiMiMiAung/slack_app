@@ -1,0 +1,55 @@
+<div class="w3-sidebar w3-bar-block w3-card" style="width:20%;right:0;height:100%;position: fixed;z-index: 1; top:9%; overflow-x: hidden;">
+<% @cha_member_count.each do |count|%>
+<h3><%= count.usercount%> メンバー</h3>
+<% end %>
+  <div class="w3-bar-item w3-button">
+    <% @cha_member_list.each do |memberlist|%>
+      
+    <%=memberlist.name%> <%=link_to "削除",removemember_url(:user_id =>memberlist.id)%><br>
+     <% end %>
+    
+  </div>
+
+  <div class="w3-bar-item w3-button">
+   他の人を追加
+  <button id="myBtn" class="button">&#8230;</button>
+  
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+    <% @user_list.each do |user|%>
+      <%=link_to user.name,insertfun_url(:user_id =>user.id)%>
+      <%end%>
+
+         
+  </div>
+</div>
+</div>
+</div>
+<script>
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>

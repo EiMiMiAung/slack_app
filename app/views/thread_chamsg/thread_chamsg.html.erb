@@ -1,0 +1,32 @@
+<%= render 'user/header' %>
+<div>
+<%= render 'user/menu' %>
+</div>
+  <h1><%= session[:cha_name] %></h1>    
+  <div class="col-md-6 col-md-offset-3">
+        <%  @chaMsg.each do |msg|%>
+          <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+          <%= msg.name %> <%= msg.created_at %><br>    
+          <%= msg.msg %><br>
+          <%  @threadmsgoutput.each do |v|%>
+            <% if v.chamsg_id == msg.id%>
+            <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+          <%= v.name %>
+          <%= v.created_at %><br> 
+          <%= v.chathread_msg %><br>
+          <% end %>
+          <% end %>
+          <hr>
+          <% end %>
+        </div>
+         
+  <div class="footer">
+  <%= form_for(:session,url:threadcreate_path) do |f| %>
+      <div class="col-md-8">
+      <%= f.text_area :sendmsg, class: 'form-control' %>
+      </div>
+      <div class="col-md-1">
+      <%= f.submit "送信", class: "btn btl-lg btn-primary btnW", :style => "width: 70px; height: 50px;" %>
+      <% end %>
+      </div>
+  </div>

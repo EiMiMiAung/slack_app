@@ -1,0 +1,2 @@
+class HDstarmsg < ApplicationRecord
+end

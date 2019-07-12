@@ -1,0 +1,46 @@
+<%= render 'user/header' %>
+</div>
+<div>
+<%= render 'user/menu' %>
+</div>
+<div class="chaH">
+<h1><%= session[:clickuser_name] %></h1>
+</div>
+<div class="container">
+<div class="article">
+<% @dirdate.each do |date|%>
+  <h3><%= date.date %></h3>
+<% @directmsgoutput.each do |v|%>
+  <div>
+  <%= image_tag("user.png.jpg", :alt => "" ,:class =>"avatar") %>
+  <div class="displaybox">
+  <div class="tooltiptext">
+  <%= link_to "",dirthreadmsg_path(:clickdirmsgid => v.id),class:"fas fa-comment-alt"%>
+  <% if @dirmsgidstar.map(&:dmsg_id).include? v.id%>
+    <%= link_to "",dirunstar_path(:starclickdirmsgid => v.id),class:"fa fa-star"%>
+  <% else %>
+    <%= link_to "",dirstar_path(:starclickdirmsgid => v.id),class:"far fa-star"%>
+  <% end %>
+  <% if session[:user_id]==v.sender_id%>
+    <%= link_to "",dirmsgdelete_path(:delclickdmsgid => v.id),class:"fa fa-trash"%>
+  <% end %>
+  </div>
+  <%= v.name %>
+  <%= v.created_at %><br>
+  <%= v.msg %>
+  <hr>
+  </div>
+  <% end %> 
+  <% end %> 
+  </div>
+  </div>
+  <div class="footer">
+  <%= form_for(:session,url:direct_path) do |f| %>
+      <div class="col-md-8">
+      <%= f.text_area :sendmsgdir, class: 'form-control' %>
+      </div>
+      <div class="col-md-1">
+      <%= f.submit "送信", class: "btn btl-lg btn-primary btnW", :style => "width: 70px; height: 50px;" %>
+      <% end %>
+      </div>
+  </div>

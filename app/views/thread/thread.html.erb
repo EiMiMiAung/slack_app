@@ -1,0 +1,67 @@
+<%= render 'user/header' %>
+<div>
+<%= render 'user/menu' %>
+</div>
+<h1>スレッド</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+   <% @directMsg.each do |dir|%>
+    <div>
+    <%= dir.name %>
+    </div>
+    </br>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= dir.name %>
+    <%= dir.created_at %>
+    </br>
+     <%= dir.msg %>
+     </br>
+     <% @directThreadMsg.each do |dirthread|%>
+        <% if dirthread.dmsg_id == dir.id%>
+        <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= dirthread.name %>
+    <%= dirthread.created_at %>
+    </br>
+     <%= dirthread.thread_msg %>
+     </br>
+     <% end %>
+     <% end %>
+     </div>
+     </br>
+     <hr>
+    <% end %>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  <% @chaMsg.each do |cha|%>
+    <div>
+    <%= cha.cha_name %>
+    </div>
+    </br>
+    <div>
+    <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= cha.user_name %>
+    <%= cha.created_at %>
+    </br>
+     <%= cha.msg %>
+     </br>
+     <% @chaThreadMsg.each do |chathread|%>
+        <% if chathread.chamsg_id == cha.id%>
+        <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+    <%= chathread.name %>
+    <%= chathread.created_at %>
+    </br>
+     <%= chathread.chathread_msg %>
+     </br>
+     <% end %>
+     <% end %>
+     </div>
+     </br>
+     <hr>
+    <% end %>
+</div>
+</div>
+
+

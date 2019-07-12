@@ -1,0 +1,62 @@
+<div class="sidenav">
+      <div class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= session[:workspace_name]%><br>
+      <%= session[:user_name]%>
+      </div>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item"><%= link_to "メンバー管理",membermanagement_path %></a>
+            <a class="dropdown-item"><%= link_to "ワークスペースをサインアウトする",logout_url %> </a>
+            <a class="dropdown-item"><%= link_to "他のワークスペースにサインインする",signin_path %></a>
+      </div>
+      <div class="functions">
+      <%= link_to "全未読", allunread_path%>
+      <% if @totalunread == 0 %>
+          <%= %>
+      <% else %>
+          <%= @totalunread %>     
+      <% end %>         
+    <%= link_to "スレッド", thread_path%>
+  
+        <hr>
+        チャンネル
+      
+        <% @chaname.each do |v|%>
+           <%= link_to v.name,channelmsg_path(:clickchaid => v.id)%>
+            <% @array.each do |chacount| %>
+               <%  if v.id==chacount.cha_id %>
+                   <% if chacount.msg_count== 0 %>
+                      <%= %>
+                    <% else %>
+                    <%= chacount.msg_count%>
+                   <% end %>
+               <% end %>
+            <% end %>
+        <% end %>
+      
+         
+        <div>
+        <%= link_to "チャンネルを追加 +", createchannel_path %>
+        </div>
+        <div>
+        ダイレクトメッセージ
+        </div>
+        <div>
+        <% @user.each do |v|%>
+           <%= link_to v.name,directmsg_path(:clickuserid => v.id)%>
+           
+            <% @arrayd.each do |count| %>
+               <%  if v.id==count.sender_id %>
+                   <% if count.value== 0 %>
+                      <%= %>
+                    <% else %>
+                    <%= count.value%>
+                   <% end %>
+               <% end %>
+            <% end %>
+        <% end %>
+      </div>
+        <div>
+         <%= link_to "メンバーを追加 +","invitemember" %>
+        </div>
+  </div>
+</div>

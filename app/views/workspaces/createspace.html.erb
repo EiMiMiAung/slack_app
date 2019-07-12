@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:session) do |f| %>
+      <%= f.label :ワークスペース名 %>
+      <%= f.text_field :workspacename, class: 'form-control' %>
+
+      <%= f.label :チャンネル名 %>
+      <%= f.text_field :channelname, class: 'form-control' %>
+
+     <p> <%= f.submit "作成", class: "btn btn-lg btn-primary" %></P>
+      <% end %>
+      </div>
+   </div>
