@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender_id: 1
+  receiver_id: 1
+  msg: MyString
+  isread: false
+  workspace_id: 1
+
+two:
+  sender_id: 1
+  receiver_id: 1
+  msg: MyString
+  isread: false
+  workspace_id: 1

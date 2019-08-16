@@ -1,0 +1,2 @@
+module StarMessagesHelper
+end

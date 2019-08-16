@@ -1,0 +1,35 @@
+<%= render 'user/header' %>
+<div>
+  <%= render 'user/menu' %>
+</div>
+  <div class="row justify-content-md-center">    
+    <div class="col-md-auto">
+      <div class="border">
+        <h1>チャンネルを作成</h1>
+        <br>
+        <%= form_for(@mcha, url: createchannel_path) do |f| %>
+          <div class="col-md-2">
+            <%= f.radio_button :isprivate, false, :checked =>true %>
+          </div>
+          <div class="col-md-4">
+            <%=f.label :パブリック%>
+          </div>
+          <div class="col-md-2">
+            <%= f.radio_button :isprivate, true %>
+          </div>
+          <div class="col-md-4">
+            <%=f.label :プライベート%>
+          </div>
+          <br><br><br><br>
+          <%= f.label :チャンネル名 %>
+          <%= f.text_field :name,class: 'form-control' %>
+          <%= f.text_field :workspace_id, class: 'form-control', value:session[:workspace_id] ,class: "#{'display-none'}"%>
+          <br><br><br>
+          <div class="col-md-8">
+            <button type="submit" class="btn btn-default">作成</button>
+          </div>
+          <%= f.button 'キャンセル', type: :reset, class: "btn btn-default"%>
+        <% end %>
+      </div>
+    </div>
+  </div>

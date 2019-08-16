@@ -1,0 +1,25 @@
+<%= render 'user/header' %>
+<%= render 'user/menu' %>
+<h1> チャネル管理</h1><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+   <% @chaid.each do |list|%>
+            <p>
+      <% @arrChaAdmin.each do |adminid|%>  
+        <% if list.id== adminid.cha_id %>
+          <% if session[:user_id]== adminid.user_id %>
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <%=list.name%><%=link_to "削除",delete_url(:cha_id =>list.id)%>
+                </p>
+          <% else %> 
+                <p>
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                  <%=list.name%>
+                  </p>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %> 
+  </div>
+</div>

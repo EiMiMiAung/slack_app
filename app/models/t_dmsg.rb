@@ -1,0 +1,2 @@
+class TDmsg < ApplicationRecord
+end

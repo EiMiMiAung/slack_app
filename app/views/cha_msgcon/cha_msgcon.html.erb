@@ -1,0 +1,33 @@
+<div class="header">
+    <div class="top_header">
+        <div class="chaH">
+            <h4><%= session[:cha_name] %></h4>
+        </div>
+        <div class="header-right">
+            <%= link_to "", starmessage_path, class:"fa fa-star",style:"color:white"%>
+            <%= link_to "", mentionmessage_path,class:"fas fa-at",style:"color:white" %>
+        </div>
+    </div>
+</div>
+
+<div>
+    <%= render 'user/menu' %>
+</div>
+<div>
+    <%= render 'sessions/channelmsgcontainer' %>
+</div>
+<div class="footer">
+    <%= form_for(:session,url:channelmsgsend_path) do |f| %>
+        <div class="col-md-5">
+            <%= f.text_field :sendmsg, class: 'form-control',data: { autocomplete_source: @usernames.order(:name).map { |t| 
+            { :label => '@' + t.name} } }, id: 'autocomplete-4',:style => "width: 500px; height: 50px;" %>
+        </div>
+        <div class="col-md-7">
+            <%= f.submit "送信", class: "btn btl-lg btn-primary btnW", :style => "width: 70px; height: 50px;" %>
+            <%= f.hidden_field :memtion_name, class: 'memtion_name' %>
+        </div>
+    <% end %>
+</div>
+<div>
+    <%= render 'cha_msgcon/sidebar' %>
+    </div>

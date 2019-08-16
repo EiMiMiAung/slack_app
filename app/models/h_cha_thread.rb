@@ -1,0 +1,2 @@
+class HChaThread < ApplicationRecord
+end

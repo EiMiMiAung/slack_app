@@ -1,0 +1,3 @@
+class TRelationship < ApplicationRecord
+   
+end

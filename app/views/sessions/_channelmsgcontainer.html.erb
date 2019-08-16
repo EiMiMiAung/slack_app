@@ -1,0 +1,81 @@
+<div class="container" id="channelmsgcontainer">
+    <div class="article">
+        <div id="scrolldown">
+            <% @chadate.each do |date|%>
+                <% @chamsgoutput.each do |msg|%>
+                    <% if date.date.to_s == msg.created_at.strftime("%F".to_s) %>
+                        <div>
+                            <%= image_tag("user.png.jpg", :alt => "" ,:class =>"avatar") %>
+                            <div class="displaybox">
+                                <div class="tooltiptext">
+                                    <%= link_to "",threadmsg_path(:clickchamsgid => msg.id),class:"fas fa-comment-alt",style:"text-decoration:none;"%>
+                                    <% if @chamsgidstar.map(&:chamsg_id).include? msg.id%>
+                                        <%= link_to "",channelunstar_path(:starclickchamsgid => msg.id),class:"fa fa-star",style:"text-decoration:none;"%>
+                                    <% else %>
+                                        <%= link_to "",channelstar_path(:starclickchamsgid => msg.id),class:"far fa-star",style:"text-decoration:none;"%>
+                                    <% end %>
+                                    <% if session[:user_id]== msg.sender_id %>
+                                        <%= link_to "",chamsgdelete_path(:delclickchamsgid => msg.id),class:"fa fa-trash",style:"text-decoration:none;"%>
+                                    <% end %>
+                                </div>
+                                <%= msg.name %><span>&nbsp;&nbsp;</span>
+                                <% @s_dif=(Time.zone.now-msg.created_at).to_i
+                                @days=@s_dif/(3600*24)
+                                @hours=@s_dif/3600
+                                @s_dif-=@hours*3600
+                                @minutes=@s_dif/60
+                                @s_dif-=@minutes*60
+                                @seconds=@s_dif
+                                %>
+                            <% if @chamsgidstar.map(&:chamsg_id).include? msg.id%>
+                                   
+                                    <% if @days>=1  %>
+                                    <%= msg.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                                    <% elsif @hours>=1  %>
+                                    <%= msg.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                                    <% elsif @seconds>=0 && @hours==0  %>
+                                    <%= msg.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                                    <% end %>
+                                    | <i class="fa fa-star" style="font-size:14px;color:blue;"></i>
+                            <% else %>
+                                <% if @days>=1  %>
+                                <%= msg.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                                <% elsif @hours>=1  %>
+                                <%= msg.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                                <% elsif @seconds>=0 && @hours==0  %>
+                                <%= msg.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                                <% end %>
+                                <% end %><br>
+                                <%= msg.msg %> 
+                                <% @arrChaThread.each do |threadcount| %>
+                                    <% if msg.id == threadcount.chamsg_id %>
+                                        <span>&emsp;</span>
+                                        <span style="background-color:skyblue;">
+                                        <%= threadcount.count%>reply
+                                        </span>
+                                    <% end %>
+                                <% end %> </br>
+                                <hr>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
+<script>
+  $('#scrolldown').scrollTop($('#scrolldown')[0].scrollHeight);
+ $( "#autocomplete-4" ).autocomplete({
+      source: $('#autocomplete-4').data('autocomplete-source'),
+      position: {
+        my: "left bottom",
+        at: "left top",
+    },
+    select: function(event, ui) {
+      event.preventDefault();
+      this.value = ui.item.label
+      $('.memtion_name').val(ui.item.value)
+    }
+    });
+</script>

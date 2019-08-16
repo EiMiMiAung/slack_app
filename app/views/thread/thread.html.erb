@@ -1,0 +1,139 @@
+<div class="header">
+    <div class="top_header">
+        <div class="chaH">
+            <h4>スレッド</h4>
+        </div>
+        <div class="header-right">
+            <%= link_to "", starmessage_path, class:"fa fa-star",style:"color:white"%>
+            <%= link_to "", mentionmessage_path,class:"fas fa-at",style:"color:white" %>
+        </div>
+    </div>
+</div>
+<div>
+    <%= render 'user/menu' %>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <% @directMsg.each do |dir|%>
+        <div>
+            <%= dir.name %>
+        </div>
+        </br>
+        <div>
+            <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+            <span>&nbsp;</span>
+            <%= dir.name %>
+            <% @s_dif=(Time.zone.now-dir.created_at).to_i
+                                    @days=@s_dif/(3600*24)
+                                    @hours=@s_dif/3600
+                                    @s_dif-=@hours*3600
+                                    @minutes=@s_dif/60
+                                    @s_dif-=@minutes*60
+                                    @seconds=@s_dif
+                                %>
+                                <% if @days>=1  %>
+                                    <%= dir.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                                <% elsif @hours>=1  %>
+                                    <%= dir.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                                <% elsif @seconds>=0 && @hours==0  %>
+                                    <%= dir.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                                <% end %><br>
+            <span>&nbsp;</span>
+            <%= dir.msg %>
+            </br><br>
+            <% @directThreadMsg.each do |dirthread|%>
+                <% if dirthread.dmsg_id == dir.id%>
+                    <div class="threadbox">
+                        <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+                        <span>&nbsp;</span>
+                        <%= dirthread.name %>
+                        <% @s_dif=(Time.zone.now-dirthread.created_at).to_i
+                                    @days=@s_dif/(3600*24)
+                                    @hours=@s_dif/3600
+                                    @s_dif-=@hours*3600
+                                    @minutes=@s_dif/60
+                                    @s_dif-=@minutes*60
+                                    @seconds=@s_dif
+                                %>
+                                <% if @days>=1  %>
+                                    <%= dirthread.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                                <% elsif @hours>=1  %>
+                                    <%= dirthread.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                                <% elsif @seconds>=0 && @hours==0  %>
+                                    <%= dirthread.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                                <% end %><br>
+                        <span>&nbsp;</span>
+                        <%= dirthread.thread_msg %>
+                        </br><br>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <hr>
+        <% end %>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <% @chaMsg.each do |cha|%>
+            <div>
+                <%= cha.cha_name %>
+            </div>
+            </br>
+            <div>
+                <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+                <span>&nbsp;</span>
+                <%= cha.user_name %>
+                <% @s_dif=(Time.zone.now-cha.created_at).to_i
+                    @days=@s_dif/(3600*24)
+                    @hours=@s_dif/3600
+                    @s_dif-=@hours*3600
+                    @minutes=@s_dif/60
+                    @s_dif-=@minutes*60
+                    @seconds=@s_dif
+                %>
+                <% if @days>=1  %>
+                    <%= cha.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                <% elsif @hours>=1  %>
+                    <%= cha.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                <% elsif @seconds>=0 && @hours==0  %>
+                    <%= cha.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                <% end %><br>
+                <span>&nbsp;</span>
+                <%= cha.msg %>
+                </br><br>
+                <% @chaThreadMsg.each do |chathread|%>
+                    <% if chathread.chamsg_id == cha.id%>
+                    <div class="threadbox">
+                        <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+                        <span>&nbsp;</span>
+                        <%= chathread.name %>
+                        <% @s_dif=(Time.zone.now-chathread.created_at).to_i
+                                    @days=@s_dif/(3600*24)
+                                    @hours=@s_dif/3600
+                                    @s_dif-=@hours*3600
+                                    @minutes=@s_dif/60
+                                    @s_dif-=@minutes*60
+                                    @seconds=@s_dif
+                                %>
+                                <% if @days>=1  %>
+                                    <%= chathread.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                                <% elsif @hours>=1  %>
+                                    <%= chathread.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                                <% elsif @seconds>=0 && @hours==0  %>
+                                    <%= chathread.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                                <% end %><br>
+                        <span>&nbsp;</span>
+                        <%= chathread.chathread_msg %>
+                        </br><br>
+                    </div>
+                    <% end %>
+                <% end %>
+            </div>
+            </br>
+            <hr>
+        <% end %>
+    </div>
+</div>
+
+

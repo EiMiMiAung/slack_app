@@ -1,0 +1,13 @@
+$("#sidenav").html("<%= j(render 'user/menu', data: @totalchaunread) %>");
+$("#sidenav").html("<%= j(render 'user/menu', data: @totalunread) %>");
+$("#sidenav").html("<%= j(render 'user/menu', data: @dirunreadarray) %>");
+
+$("#directmsgcontainer").html("<%= j(render 'sessions/directmsgcontainer', data: @dirdate) %>");
+$("#directmsgcontainer").html("<%= j(render 'sessions/directmsgcontainer', data: @directmsgoutput) %>");
+$("#directmsgcontainer").html("<%= j(render 'sessions/directmsgcontainer', data: @dirmsgidstar) %>");
+$("#directmsgcontainer").html("<%= j(render 'sessions/directmsgcontainer', data: @arrDirThread) %>");
+
+$("#channelmsgcontainer").html("<%= j(render 'sessions/channelmsgcontainer', data: @chadate) %>");
+$("#channelmsgcontainer").html("<%= j(render 'sessions/channelmsgcontainer', data: @chamsgoutput) %>");
+$("#channelmsgcontainer").html("<%= j(render 'sessions/channelmsgcontainer', data: @chamsgidstar) %>");
+$("#channelmsgcontainer").html("<%= j(render 'sessions/channelmsgcontainer', data: @arrChaThread) %>");

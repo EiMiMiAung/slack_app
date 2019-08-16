@@ -1,0 +1,2 @@
+class HChastarmsg < ApplicationRecord
+end

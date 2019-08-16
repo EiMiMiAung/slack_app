@@ -1,0 +1,10 @@
+<div class="footer">
+  <div class col="col-md-8 col-md-offset-5",style="margin-top:20pm">
+  <%= form_for(:session,url:channel_path) do |f| %>
+    <%= f.label :ワークスペース名_url %>
+    <%= f.text_area :sendmsg, class: 'form-control' %>
+    <%= f.submit "Send", class: "btn btn-primary" %>
+   
+    <% end %>
+  </div>
+</div> 

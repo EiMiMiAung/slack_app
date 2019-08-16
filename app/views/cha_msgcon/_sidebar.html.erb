@@ -1,0 +1,71 @@
+<div class="w3-sidebar w3-bar-block w3-card" style="background-color:  #f2f6f8;width:17%;right:0;height:100%;position: fixed;z-index: 1; top:9%; overflow-x: hidden;">
+  <% @cha_member_count.each do |count|%>
+    <div class="center">
+      <h3><%= count.usercount%> メンバー</h3>
+    </div>
+  <% end %>
+  <div class="center">
+    <div class="w3-bar-item w3-button">
+      <% if @chamember[0][:user_id]==session[:user_id]%>
+        <% @chamember.each do |memberlist|%>
+          <h4> <%=memberlist.name%> <%=link_to "削除",removemember_url(:user_id =>memberlist.id),style:"text-decoration:none;"%><br></h4>
+        <% end %>
+        <%=will_paginate @chamember%>
+      <% else %>
+        <% @chamember.each do |memberlist|%>
+          <h4> <%=memberlist.name%><br></h4>
+        <% end %>
+        <%=will_paginate @chamember%>
+      <% end %>
+    </div>
+  </div>
+  <div class="center">
+    <div class="w3-bar-item w3-button">
+      他の人を追加
+      <button id="myBtn" class="button">&#8230;</button>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>   
+          <%= "ブロックリストと新しいリスと" %> 
+          <% @updatelistpeople.each do |updateuser|%>
+            <%=link_to updateuser.name,updatefun_url(:userid =>updateuser.user_id,:trelationshipid => updateuser.id)%>
+          <%end%>
+          <% @insertarray.each do |insertuser|%>
+            <% if @chaarray.map(&:user_id).include? insertuser.id%>
+              <%= %>
+            <% else %>
+              <%=link_to insertuser.name,insertfun_url(:userid =>insertuser.id)%>
+            <%end%> 
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    }
+  }
+</script>

@@ -1,0 +1,49 @@
+<div class="header">
+  <div class="top_header">
+    <div class="chaH">
+      <h4>アクティビティ</h4>
+    </div>
+    <div class="header-right">
+      <%= link_to "", starmessage_path, class:"fa fa-star",style:"color:white"%>
+      <%= link_to "", mentionmessage_path,class:"fas fa-at",style:"color:white" %>
+    </div>
+  </div>
+</div>
+<div>
+  <%= render 'user/menu' %>
+</div>
+                   
+<div class="mentionarticle">
+  <div id="mentionscrolldown">
+    
+      <% @mention.each do |mention|%>
+        <div>
+          <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+          <span>&nbsp;</span>
+          <%= mention.name %>
+          <% @s_dif=(Time.zone.now-mention.created_at).to_i
+          @days=@s_dif/(3600*24)
+          @hours=@s_dif/3600
+          @s_dif-=@hours*3600
+          @minutes=@s_dif/60
+          @s_dif-=@minutes*60
+          @seconds=@s_dif
+          %>
+          <% if @days>=1  %>
+            <%= mention.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+          <% elsif @hours>=1  %>
+            <%= mention.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+          <% elsif @seconds>=0 && @hours==0  %>
+            <%= mention.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+          <% end %>
+          <div>
+          <%= mention.msg %><br>
+          </div>
+          <h6 class="mentionchaname">Channel name : <%= mention.cha_name %></h6>
+          <hr>
+        </div>
+      <% end %>
+    
+  </div>
+</div>
+  

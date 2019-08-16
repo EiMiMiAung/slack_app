@@ -1,0 +1,5 @@
+Hi <%=  @m_user.name  %> ,
+
+Welcome to the Slack App!<h3><%=  @workspace_name  %></h3> Click on the link below to join your account:
+
+<%= link_to  "Join workspace", editjoinworkspace_url(wname: @workspace_name,email: @m_user.email) %>

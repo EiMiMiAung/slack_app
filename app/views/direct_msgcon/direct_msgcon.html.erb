@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="top_header">
+    <div class="chaH">
+      <h4><%= session[:clickuser_name] %></h4>
+    </div>
+    <div class="header-right">
+      <%= link_to "", starmessage_path, class:"fa fa-star",style:"color:white"%>
+      <%= link_to "", mentionmessage_path,class:"fas fa-at",style:"color:white" %>
+    </div>
+  </div>
+</div>
+<div>
+  <%= render 'user/menu' %>
+</div>
+<div>
+  <%= render 'sessions/directmsgcontainer' %>
+</div>
+<div class="footer">
+  <%= form_for(:session,url:direct_path) do |f| %>
+    <div class="col-md-5">
+      <%= f.text_area :sendmsgdir, class: 'form-control',  :style => "width: 500px; height: 50px;" %>
+    </div>
+    <div class="col-md-7">
+      <%= f.submit "送信", class: "btn btl-lg btn-primary btnW", :style => "width: 70px; height: 50px;" %>
+    </div>
+  <% end %>
+</div>

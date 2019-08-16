@@ -1,0 +1,86 @@
+<div class="header">
+  <div class="top_header">
+    <div class="chaH">
+      <h4>未読</h4>
+    </div>
+    <div class="header-right">
+      <%= link_to "", starmessage_path, class:"fa fa-star",style:"color:white"%>
+      <%= link_to "", mentionmessage_path,class:"fas fa-at",style:"color:white" %>
+    </div>
+  </div>
+</div>
+<%= render 'user/menu' %>
+<div class="row" id="unreadscroll">
+  <div class="col-md-6 col-md-offset-3">
+    <% if @dirUnreadMsg!=[] %>
+      <%= "Direct Message" %>
+    <% end %>
+    <br><br>
+    <% @dirUnreadMsg.each do |dmsg|%>
+        <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+        <span>&nbsp;</span>
+        <%= dmsg.name %>
+        <% @s_dif=(Time.zone.now-dmsg.created_at).to_i
+                  @days=@s_dif/(3600*24)
+                  @hours=@s_dif/3600
+                  @s_dif-=@hours*3600
+                  @minutes=@s_dif/60
+                  @s_dif-=@minutes*60
+                  @seconds=@s_dif
+                 %>
+        <% if @days>=1  %>
+          <%= dmsg.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+        <% elsif @hours>=1  %>
+          <%= dmsg.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+        <% elsif @seconds>=0 && @hours==0  %>
+          <%= dmsg.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+        <% end %>
+        <br>
+        <span>&nbsp;</span>
+        <%= dmsg.msg %>
+        </br>
+        <hr>
+    <% end %>
+    
+    <% @arrChaunreadmsg.each do |chamsg|%>
+
+      <div>
+      <%= chamsg.cha_name %>
+      </div>
+      </br>
+      <div>
+      <%= image_tag("user.png.jpg", :alt => "rss feed" ,:class =>"avatar") %>
+      <span>&nbsp;</span>
+                <%= chamsg.user_name %>
+                <% @s_dif=(Time.zone.now-chamsg.created_at).to_i
+                @days=@s_dif/(3600*24)
+                @hours=@s_dif/3600
+                @s_dif-=@hours*3600
+                @minutes=@s_dif/60
+                @s_dif-=@minutes*60
+                @seconds=@s_dif
+                %>
+                <% if @days>=1  %>
+                                <%= chamsg.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                                <% elsif @hours>=1  %>
+                                <%= chamsg.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                                <% elsif @seconds>=0 && @hours==0  %>
+                                <%= chamsg.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                                <% end %>
+                                <br>
+        <span>&nbsp;</span>
+       <%= chamsg.msg %>
+       </br>
+       <hr>
+      <% end %>
+  </div>
+</div>
+<div class="footer">
+  <% if @dirUnreadMsg!=[] || @arrChaunreadmsg!=[]  %>
+    <%= form_for(allunread_path) do |f| %>
+      <p> <%= f.submit "すでに読んだ", class: "btn btn-lg btn-primary",:style => "width: 150px; height: 50px;" %></P>
+    <% end %>
+  <% end %>
+</div>
+
+

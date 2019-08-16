@@ -1,0 +1,13 @@
+<%= render 'user/header' %>
+<%= render 'user/menu' %>
+<h1> メンバー管理</h1><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <% @user_list.each do |memberlist|%>
+            <p>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <%=memberlist.name%><%=link_to "削除",remove_url(:user_id =>memberlist.id)%>
+            </p>
+    <% end %> 
+  </div>
+</div>

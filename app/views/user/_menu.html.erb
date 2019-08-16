@@ -1,0 +1,84 @@
+<div   id="sidenav">
+<div class="sidenav">
+      <div class="btn btn-secondary dropdown-toggle" href="#" role="button" style="color:white" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <h4 class="menuworkspacename"><%= session[:workspace_name]%></h4>
+      <username class="menuusername"><%= session[:user_name]%><username>
+      </div>
+          <span class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <% if session[:admin_id] %>
+           <div> <a class="dropdown-item"><%= link_to "メンバー管理",membermanagement_path,style:"text-decoration:none;" %></a></div>
+           <div><a class="dropdown-item"><%= link_to "チャネル管理",channelmanagement_path,style:"text-decoration:none;" %></a></div>
+           <div> <a class="dropdown-item"><%= link_to "ワークスペースをサインアウトする",logout_url,style:"text-decoration:none;" %> </a></div>
+           <div><a class="dropdown-item"><%= link_to "他のワークスペースにサインインする",signin_path,style:"text-decoration:none;" %></a></div>
+          <% else %>
+           <div><a class="dropdown-item"><%= link_to "チャネル管理",channelmanagement_path,style:"text-decoration:none;" %></a></div>
+           <div> <a class="dropdown-item"><%= link_to "ワークスペースをサインアウトする",logout_url,style:"text-decoration:none;" %> </a></div>
+           <div><a class="dropdown-item"><%= link_to "他のワークスペースにサインインする",signin_path,style:"text-decoration:none;" %></a></div>
+          <% end %>
+          </span>
+      <div>
+    <span>&emsp;</span><%= link_to "全未読", allunread_path,style:"color: white;text-decoration:none;"%>
+      <% if @totalunread != "0" %>
+        <span>&emsp;</span>
+        <span class="badge bmsg"> <%= @totalunread %></span>
+      <% end %> 
+      
+      </div>
+   
+   <div> 
+   <span>&emsp;</span><%= link_to "スレッド", thread_path,style:"color:white;text-decoration:none;"%>
+   </div>
+  
+        <hr>
+        <h4 style="color: white"><span>&emsp;</span> チャンネル</h4>
+      
+      <% @chaname.each do |v|%>
+        <div>
+          <span>&emsp;&emsp;&emsp;</span> <%= link_to v.name,channelmsg_path(:clickchaid => v.id),style:"color:orange;text-decoration:none;"%>
+          <% if v.isprivate==true %>
+             <i class="fas fa-lock" style="color:white"></i>
+          <% else %>
+             <%=  %>
+          <% end %>
+          <% @arrChamsgcount.each do |chacount| %>
+             <%  if v.id==chacount.cha_id %>
+                 <% if chacount.msg_count== 0 %>
+                    <%= %>
+                  <% else %>
+                    <span>&emsp;</span>
+                    <span class="badge bmsg"><%= chacount.msg_count%></span>
+                 <% end %>
+             <% end %>
+          <% end %>
+          </div>
+      <% end %>
+
+        <div>
+       <h4 style="color: white"><span>&emsp;</span>チャンネルを追加 <%= link_to "", createchannel_path, class:"fa fa-plus",style:"color:orange;text-decoration:none;" %></h4>
+        </div>
+        
+       <h4 style="color: white"><span>&emsp;</span>ダイレクトメッセージ</h4>
+       
+      
+       
+       <% @user.each do |u|%>
+        <div>        
+        <span>&emsp;&emsp;&emsp;</span><%= link_to u.name, directmsg_path(:clickuserid => u.id),style:"color:orange;text-decoration:none;"%> 
+          <% @dirunreadarray.each do |unreadcount| %>
+           <%  if u.id==unreadcount.sender_id %>
+               <% if unreadcount.count == 0 %>
+                  <%= %>
+                <% else %>
+                <span class="badge bmsg"><%= unreadcount.count%></span>
+               <% end %>
+           <% end %>
+        <% end %>
+        </div>
+      <% end %>
+   
+      <div>
+        <h4 style="color: white"><span>&emsp;</span>メンバーを追加 <%= link_to "", invitemember_path, class:"fa fa-plus",style:"color:orange;text-decoration:none;" %></h4>
+      </div>
+  </div>
+</div>
+</div>

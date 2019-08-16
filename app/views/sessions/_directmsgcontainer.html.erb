@@ -1,0 +1,70 @@
+<div class="container" id="directmsgcontainer">
+  <div class="directarticle">
+    <div id="bottomscroll">
+      <% @dirdate.each do |date|%>
+        <% @directmsgoutput.each do |v|%>
+          <% if date.date.to_s == v.created_at.strftime("%F".to_s) %>
+            <div>
+              <%= image_tag("user.png.jpg", :alt => "" ,:class =>"avatar") %>
+              <div class="displaybox">
+                <div class="tooltiptext">
+                    <%= link_to "",dirthreadmsg_path(:clickdirmsgid => v.id),class:"fas fa-comment-alt",style:"text-decoration:none;"%>
+                    <% if @dirmsgidstar.map(&:dmsg_id).include? v.id%>
+                        <%= link_to "",dirunstar_path(:starclickdirmsgid => v.id),class:"fa fa-star",style:"text-decoration:none;"%>
+                    <% else %>
+                        <%= link_to "",dirstar_path(:starclickdirmsgid => v.id),class:"far fa-star",style:"text-decoration:none;"%>
+                    <% end %>
+                    <% if session[:user_id]==v.sender_id%>
+                      <%= link_to "",dirmsgdelete_path(:delclickdmsgid => v.id),class:"fa fa-trash",style:"text-decoration:none;"%>
+                    <% end %>
+                </div>
+                <div class="username">
+                  <% @s_dif=(Time.zone.now-v.created_at).to_i
+                  @days=@s_dif/(3600*24)
+                  @hours=@s_dif/3600
+                  @s_dif-=@hours*3600
+                  @minutes=@s_dif/60
+                  @s_dif-=@minutes*60
+                  @seconds=@s_dif
+                  %>
+                  <% if @dirmsgidstar.map(&:dmsg_id).include? v.id%>
+                    <%= v.name %><span>&nbsp;&nbsp;</span>
+                    <% if @days>=1  %>
+                      <%= v.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                    <% elsif @hours>=1  %>
+                      <%= v.created_at.strftime("%Y-%m-%d") %> (<%= @hours %>-hour ago)
+                    <% elsif @seconds>=0 && @hours==0  %>
+                      <%= v.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                    <% end %>
+                    | <i class="fa fa-star" style="font-size:14px;color:blue;""></i>
+                  <% else %>
+                    <%= v.name %><span>&nbsp;&nbsp;</span>
+                    <% if @days>=1  %>
+                      <%= v.created_at.strftime("%Y-%m-%d") %>(<%= @days%>-day ago)
+                    <% elsif @hours>=1  %>
+                      <%= v.created_at.strftime("%Y-%m-%d") %>(<%= @hours %>-hour ago)
+                    <% elsif @seconds>=0 && @hours==0  %>
+                      <%= v.created_at.strftime("%Y-%m-%d") %>(<%= @minutes %> min ago)
+                    <% end %>
+                  <% end %> 
+                </div>
+                <span>&nbsp;</span>
+                <%= v.msg %>
+                <% @arrDirThread.each do |threadcount| %>
+                  <% if v.id == threadcount.dmsg_id %>
+                    <span>&emsp;</span>
+                    <span style="background-color:skyblue;"><%= threadcount.count%>reply</span>
+                  <% end %>
+                <% end %> 
+                <hr>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %> 
+    </div>
+  </div>
+</div>
+<script>
+  $('#bottomscroll').scrollTop($('#bottomscroll')[0].scrollHeight);
+</script>

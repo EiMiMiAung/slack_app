@@ -1,0 +1,2 @@
+class HDthread < ApplicationRecord
+end
